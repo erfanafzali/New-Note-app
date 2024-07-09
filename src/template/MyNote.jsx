@@ -1,6 +1,6 @@
 import { FaTrash } from "react-icons/fa";
 
-function MyNote({ note }) {
+function MyNote({ note, deleteNote, checkNote }) {
   const colorMap = {};
   const selectedColors = {};
 
@@ -46,8 +46,17 @@ function MyNote({ note }) {
             <p className="text-lg ">{note.description}</p>
           </div>
           <div className="flex justify-center items-center gap-x-2">
-            <input type="checkbox" />
-            <FaTrash />
+            <input
+              type="checkbox"
+              onChange={checkNote}
+              value={note.id}
+              name={note.id}
+              id={note.id}
+              checked={note.completed}
+            />
+            <button onClick={() => deleteNote(note.id)} className="">
+              <FaTrash />
+            </button>
           </div>
         </div>
         <h3 className="font-bold ">{note.createdAt}</h3>

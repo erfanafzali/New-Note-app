@@ -1,6 +1,6 @@
 import MyNote from "../template/MyNote";
 
-function Notes({ addNote }) {
+function Notes({ addNote, deleteNote, checkNote }) {
   return (
     <div className="w-full overflow-y-auto max-h-[700px] mt-24 md:mt-0 px-4">
       <div className=" bg-white h-[10000px] rounded-lg flex justify-start items-center flex-col">
@@ -8,7 +8,12 @@ function Notes({ addNote }) {
           My Notes
         </h1>
         {addNote.map((note) => (
-          <MyNote key={note.id} note={note} />
+          <MyNote
+            key={note.id}
+            note={note}
+            deleteNote={deleteNote}
+            checkNote={checkNote}
+          />
         ))}
       </div>
     </div>

@@ -24,10 +24,27 @@ function App() {
     console.log(addNote);
   };
 
+  const handleCheck = (e) => {
+    const noteId = Number(e.target.value);
+    setAddNote((prevNote) =>
+      prevNote.map((note) =>
+        note.id === noteId ? { ...note, completed: !note.completed } : note
+      )
+    );
+  };
+
+  const handleDeleteNote = (id) => {
+    setAddNote((prevNote) => prevNote.filter((note) => note.id !== id));
+  };
+
   return (
     <div className="container mx-auto  flex md:flex-row flex-col justify-center items-center md:items-start   mt-24">
       <AddNewNote handleNewNote={handleNewNote} addNote={addNote} />
-      <Notes addNote={addNote} />
+      <Notes
+        addNote={addNote}
+        deleteNote={handleDeleteNote}
+        checkNote={handleCheck}
+      />
     </div>
   );
 }
