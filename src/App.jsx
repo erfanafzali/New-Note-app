@@ -3,6 +3,7 @@ import AddNewNote from "./components/AddNewNote";
 import Notes from "./components/Notes";
 
 function App() {
+
   const [addNote, setAddNote] = useState([]);
 
   useEffect(() => {

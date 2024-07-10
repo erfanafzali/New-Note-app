@@ -41,7 +41,11 @@ function MyNote({ note, deleteNote, checkNote }) {
         className="w-full min-h-32 rounded-lg newShadow flex flex-col justify-center items-center border-4"
       >
         <div className="w-full border-b flex justify-between px-5 items-center ">
-          <div className="flex flex-col justify-center items-start mb-5">
+          <div
+            className={`flex flex-col justify-center items-start mb-5 ${
+              note.completed ? "line-through" : ""
+            }`}
+          >
             <h2 className="font-bold text-xl">{note.title}</h2>
             <p className="text-lg ">{note.description}</p>
           </div>
