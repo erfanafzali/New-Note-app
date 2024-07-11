@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import AddNewNote from "./components/AddNewNote";
 import Notes from "./components/Notes";
+import NoteHeader from "./components/NoteHeader";
 
 function App() {
-
   const [addNote, setAddNote] = useState([]);
+  const [sortBy, setSortBy] = useState("latest");
 
   useEffect(() => {
     const handleContextmenu = (e) => {
@@ -18,7 +19,7 @@ function App() {
 
   useEffect(() => {
     console.log(addNote);
-  }, [addNote]);
+  }, [addNote, sortBy]);
 
   const handleNewNote = (newNote) => {
     setAddNote((prevNote) => [...prevNote, newNote]);
@@ -38,14 +39,39 @@ function App() {
     setAddNote((prevNote) => prevNote.filter((note) => note.id !== id));
   };
 
+  // sort my notes
+
+  let sortedNotes = addNote;
+  if (sortBy === "earliest")
+    sortedNotes = [...addNote].sort(
+      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+    );
+
+  if (sortBy === "latest")
+    sortedNotes = [...addNote].sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+
+  if (sortBy === "completed")
+    sortedNotes = [...addNote].sort(
+      (a, b) => Number(a.completed) - Number(b.completed)
+    );
+
   return (
-    <div className="container mx-auto  flex md:flex-row flex-col justify-center items-center md:items-start   mt-24">
-      <AddNewNote handleNewNote={handleNewNote} addNote={addNote} />
-      <Notes
+    <div className="container mx-auto mt-10">
+      <NoteHeader
+        sortBy={sortBy}
+        onSort={(e) => setSortBy(e.target.value)}
         addNote={addNote}
-        deleteNote={handleDeleteNote}
-        checkNote={handleCheck}
       />
+      <div className="w-full  flex md:flex-row flex-col justify-center items-center md:items-start   mt-24">
+        <AddNewNote handleNewNote={handleNewNote} addNote={addNote} />
+        <Notes
+          addNote={sortedNotes}
+          deleteNote={handleDeleteNote}
+          checkNote={handleCheck}
+        />
+      </div>
     </div>
   );
 }

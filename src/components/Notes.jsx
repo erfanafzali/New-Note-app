@@ -2,8 +2,8 @@ import MyNote from "../template/MyNote";
 
 function Notes({ addNote, deleteNote, checkNote }) {
   const checkedNote = addNote.filter((note) => note.completed === true);
- 
-  if(!addNote.length) return  null
+
+  if (!addNote.length) return null;
 
   return (
     <div className="w-full overflow-y-auto max-h-[700px] mt-24 md:mt-0 px-4">

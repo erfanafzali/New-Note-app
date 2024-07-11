@@ -1,11 +1,7 @@
 import { useState } from "react";
 
 function AddNewNote({ handleNewNote, addNote }) {
-  const option = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
+ 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -18,7 +14,7 @@ function AddNewNote({ handleNewNote, addNote }) {
       title,
       description,
       id: Date.now(),
-      createdAt: new Date().toLocaleDateString("en-US", option),
+      createdAt: new Date().toISOString(),
       completed: false,
     };
 
